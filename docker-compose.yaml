@@ -1,0 +1,18 @@
+version: '3'
+services:
+  node:
+    tty: true
+    stdin_open: true
+    container_name: in3-service
+    build:
+      context: .
+    depends_on:
+      - mongo
+    volumes:
+      - .:/var/code:rw
+    ports:
+      - 5300:5300
+    entrypoint: './startup.sh'
+
+  mongo:
+    image: mongo:3.6.0
