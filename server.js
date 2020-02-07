@@ -7,14 +7,6 @@ const cors = require('cors');
 
 class ExpressUtility {
 
-    static createExpressApp() {
-        const app = express();
-        app.disable('x-powered-by');
-        ExpressUtility.setBodyParser(app);
-        ExpressUtility.setCORS(app);
-        return app;
-    }
-
     static setBodyParser(app) {
         app.use(bodyParser.json());
         app.use(bodyParser.urlencoded({ extended: false }));
@@ -23,6 +15,15 @@ class ExpressUtility {
     static setCORS(app) {
         app.use(cors());
     }
+    
+    static createExpressApp() {
+        const app = express();
+        app.disable('x-powered-by');
+        ExpressUtility.setBodyParser(app);
+        ExpressUtility.setCORS(app);
+        return app;
+    }
+
     static startApp(app, config) {
         return new Promise(resolve => {
             app.listen(config.port, () => {

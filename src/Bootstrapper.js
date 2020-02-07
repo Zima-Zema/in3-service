@@ -24,10 +24,10 @@ class Bootstrapper {
         //#endregion
         this.syncDataBaseByDataSet(storeDbModel);
     }
-
+    
     static createStoreController(dependances) {
         return new Controllers.Store({ 
-            dbModel: dependances.storeDbModel, 
+            dbModel: dependances.storeDbModel,
         });
     }
 
@@ -45,7 +45,6 @@ class Bootstrapper {
         // 
         return storeDbModel.find({})
         .then(data => {
-            console.log('data', data);
             if(_.isEmpty(data)) {
                 return csv().fromFile(__dirname + '/utilities/resources/dataset.csv')
             }

@@ -90,7 +90,6 @@ class MongoDBModel {
     _applyReadHooks() {
         this.schema.pre('find', function() {
             this.where({ is_active: true });
-            console.log('find hook');
         });
 
         this.schema.pre('findOneAndUpdate', function() {
