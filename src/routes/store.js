@@ -40,8 +40,6 @@ module.exports = (app, controller, config) => {
                     code: err.errorCode,
                 });
             });
-
-    app.get(`${endpoint}/test`, (req, res) => wrapResponse(Promise.resolve('service is up'), res));
     app.get(`${endpoint}/store/search`, (req, res) => wrapResponse(controller.startSearch(req.query), res));
     app.get(`${endpoint}/store/filters`, (req, res) => wrapResponse(controller.findFilters(), res));
 
