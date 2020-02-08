@@ -122,7 +122,6 @@ class StoreController {
                     })
                     .uniq()
                     .value();
-                console.log('cpuDropDown', cpuDropDown.length)
                 return {
                     data: {
                         ramDropDown,
@@ -134,6 +133,32 @@ class StoreController {
             })
     }
 
+    findHints(search) {
+        if (!search)
+            return Promise.resolve({ data: [] });
+
+        const query = { "$or": [{ "company": { "$regex": search, "$options": "i" } }, { "product": { "$regex": search, "$options": "i" } }] }
+        
+        return this.dbModel.find(query, { company: 1, product: 1 })
+            .then(data => {
+
+                const companyRes = _.chain(data)
+                    .map(element => element.company)
+                    .uniq()
+                    .value();
+                
+                const productRes = _.chain(data)
+                    .map(element => element.product)
+                    .uniq()
+                    .value();
+
+                const res = _.concat(productRes, companyRes);
+                const reg = new RegExp(search, 'i');
+                const final = _.sortBy(res, one => one.replace(reg, '').length);
+                return final;
+            })
+
+    }
 }
 
 module.exports = StoreController;

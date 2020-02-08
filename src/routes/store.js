@@ -42,6 +42,7 @@ module.exports = (app, controller, config) => {
             });
     app.get(`${endpoint}/store/search`, (req, res) => wrapResponse(controller.startSearch(req.query), res));
     app.get(`${endpoint}/store/filters`, (req, res) => wrapResponse(controller.findFilters(), res));
+    app.get(`${endpoint}/store/hints`, (req, res) => wrapResponse(controller.findHints(req.query.search), res));
 
 
 };
