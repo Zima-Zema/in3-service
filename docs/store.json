@@ -1,0 +1,275 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "In3 Computer Store Documentation",
+    "version" : "1.0.0",
+    "title" : "In3 Computer Store"
+  },
+  "host" : "in3service.herokuapp.com",
+  "basePath" : "/api/in3service",
+  "schemes" : [ "http" ],
+  "consumes" : [ "application/json" ],
+  "produces" : [ "application/json" ],
+  "paths" : {
+    "/store/search" : {
+      "get" : {
+        "tags" : [ "Store" ],
+        "summary" : "retrive store array based on search",
+        "description" : "get all Store elements and filter by all cpu, ram, inches, and opsys with pagination and count",
+        "operationId" : "startSearch",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "limit number of documents to be retrived",
+          "required" : false,
+          "type" : "integer",
+          "default" : 10
+        }, {
+          "name" : "skip",
+          "in" : "query",
+          "description" : "skip number of documents to be retrived",
+          "required" : false,
+          "type" : "integer",
+          "default" : 0
+        }, {
+          "name" : "search",
+          "in" : "query",
+          "description" : "search term company or product",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "cpu[]",
+          "in" : "query",
+          "description" : "search in cpu as array of string",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          },
+          "collectionFormat" : "multi",
+          "default" : "[]"
+        }, {
+          "name" : "ram[]",
+          "in" : "query",
+          "description" : "search in ram as array of string",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          },
+          "collectionFormat" : "multi",
+          "default" : "[]"
+        }, {
+          "name" : "inches[]",
+          "in" : "query",
+          "description" : "search in inches as array of string",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          },
+          "collectionFormat" : "multi",
+          "default" : "[]"
+        }, {
+          "name" : "opSys[]",
+          "in" : "query",
+          "description" : "search in opSys as array of string",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          },
+          "collectionFormat" : "multi",
+          "default" : "[]"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/SearchRes"
+            }
+          }
+        }
+      }
+    },
+    "/store/filters" : {
+      "get" : {
+        "tags" : [ "Store" ],
+        "summary" : "retrive store filer dropdowns",
+        "description" : "retrive all dropdown data cpu, ram, inches, and opsys",
+        "operationId" : "findFilters",
+        "produces" : [ "application/json" ],
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/Filters"
+            }
+          }
+        }
+      }
+    },
+    "/store/hints" : {
+      "get" : {
+        "tags" : [ "Store" ],
+        "summary" : "retrive store auto complete",
+        "description" : "retrive store auto complete from company and product",
+        "operationId" : "findHints",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "search",
+          "in" : "query",
+          "description" : "search term used for auto complete",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/Hints"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "Store" : {
+      "type" : "object",
+      "properties" : {
+        "company" : {
+          "type" : "string",
+          "example" : "Asus",
+          "description" : "a vendor computer manufacturer"
+        },
+        "product" : {
+          "type" : "string",
+          "example" : "X553SA-XX031T (N3050/4GB/500GB/W10)",
+          "description" : "a computer model/name"
+        },
+        "type" : {
+          "type" : "string",
+          "example" : "Notebook",
+          "description" : "a computer model type like 2 in 1 Convertible/Notebook"
+        },
+        "inches" : {
+          "type" : "string",
+          "example" : "15.6",
+          "description" : "a computer model size"
+        },
+        "resolution" : {
+          "type" : "string",
+          "example" : "Asus",
+          "description" : "a computer screen resolution"
+        },
+        "cpu" : {
+          "type" : "string",
+          "example" : "Intel Celeron Dual Core N3050 1.6GHz",
+          "description" : "a computer cpu model and speed"
+        },
+        "ram" : {
+          "type" : "string",
+          "example" : "4GB",
+          "description" : "a computer memory size"
+        },
+        "memory" : {
+          "type" : "string",
+          "example" : "Asus",
+          "description" : "a computer main storage size"
+        },
+        "graphics" : {
+          "type" : "string",
+          "example" : "Asus",
+          "description" : "a computer graphics model and name"
+        },
+        "opSys" : {
+          "type" : "string",
+          "example" : "Asus",
+          "description" : "a computer operating system type"
+        },
+        "weight" : {
+          "type" : "string",
+          "example" : "Asus",
+          "description" : "a computer Weight in kilo gram"
+        },
+        "price" : {
+          "type" : "string",
+          "example" : "Asus",
+          "description" : "a computer price in us doller"
+        }
+      }
+    },
+    "SearchRes" : {
+      "type" : "object",
+      "properties" : {
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Store"
+          }
+        },
+        "count" : {
+          "type" : "integer",
+          "example" : 8,
+          "description" : "total count of documents"
+        }
+      }
+    },
+    "Filters" : {
+      "type" : "object",
+      "properties" : {
+        "data" : {
+          "$ref" : "#/definitions/Filters_data"
+        }
+      }
+    },
+    "Hints" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string",
+        "example" : "Apple",
+        "description" : "operating system type"
+      }
+    },
+    "Filters_data" : {
+      "type" : "object",
+      "properties" : {
+        "ramDropDown" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "example" : "8GB",
+            "description" : "ram size values"
+          }
+        },
+        "inchesDropDown" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "example" : "15.6",
+            "description" : "computer size values"
+          }
+        },
+        "opSysDropDown" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "example" : "Linux",
+            "description" : "operating system type"
+          }
+        },
+        "cpuDropDown" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "example" : "Intel Core i5",
+            "description" : "computer cpu model and size values"
+          }
+        }
+      }
+    }
+  }
+}
