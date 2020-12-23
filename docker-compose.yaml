@@ -12,7 +12,7 @@ services:
       - .:/var/code:rw
     ports:
       - 5300:5300
-    entrypoint: './startup.sh'
+    entrypoint: 'bash -c "npm install && npm start"'
 
   mongo:
     image: mongo:3.6.0

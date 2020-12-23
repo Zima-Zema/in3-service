@@ -30,7 +30,6 @@ class ExpressUtility {
     static setHome(app) {
         app.use(express.static(path.join(__dirname, 'dist/in3-computer-store')))
         app.get("*", function (req, res, next) {
-            console.log("enter here")
             res.sendFile(path.join(__dirname, 'dist/in3-computer-store/index.html'));
         });
     }
